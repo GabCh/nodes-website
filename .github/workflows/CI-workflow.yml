@@ -10,16 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     jobs:
       build:
-        runs-on: ubuntu-16.04
-        strategy:
-          matrix:
-            node: [ '10', '8' ]
-        name: Node ${{ matrix.node }} sample
         steps:
-          - uses: actions/checkout@master
-          - name: Setup node
-            uses: actions/setup-node@v1
-            with:
-              node-version: ${{ matrix.node }}
-          - run: npm install
-          - run: npm test
+            - uses: actions/checkout@master
+            - uses: actions/setup-node@v1
+              with:
+                node-version: '10.x'
+            - run: npm install
+            - run: npm test
