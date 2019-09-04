@@ -4,16 +4,16 @@ on: [push]
 
 jobs:
   build:
-    # Job name
-    name: CI
-    # This job runs on Linux
-    runs-on: ubuntu-latest
-    jobs:
-      build:
-        steps:
-            - uses: actions/checkout@master
-            - uses: actions/setup-node@v1
-              with:
-                node-version: '10.x'
-            - run: npm install
-            - run: npm test
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        node: [ '10', '8' ]
+    name: Node ${{ matrix.node }} sample
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install
+      - run: npm test
