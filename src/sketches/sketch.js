@@ -1,95 +1,136 @@
 //TODO: Find a way to use ts
 export default function sketch(p){
-    // Code from https://www.openprocessing.org/sketch/738144
-    let pallete = ["#DADCDA", "#DE200C", "#3A6DA8", "#A8BACC", "#0A1D4E", "#CD4645", "#C0AEB5", "#838CA9"];
+    // Code from https://www.openprocessing.org/
 
-    let graphics;
-    let num = 1000;
-    let movers = [];
-    let offset;
-    let bg;
+    let particles_a = [];
+    let particles_b = [];
+    let particles_c = [];
+    let nums =50;
+    let noiseScale = 800;
+
+    let pathPoints = [];
+    let maxIter = 2000;
+    let it = 0;
 
     p.setup = () => {
-        p.createCanvas(800, 800);
-        p.colorMode(p.HSB, 360, 100, 100, 100);
-        p.angleMode(p.DEGREES);
+        p.createCanvas(p.windowWidth, p.windowHeight);
+        p.background(21, 8, 50);
 
-        graphics = p.createGraphics(p.width, p.height);
-        graphics.colorMode(p.HSB, 360, 100, 100, 100);
-        drawNoiseBackground(100000, graphics);
-        let n = p.int(p.random(pallete.length));
-        bg = pallete[n];
-        pallete.splice(n, 1);
 
-        offset = p.width / 10;
-        for (let i = 0; i < num; i++) {
-            let x = p.random(p.width);
-            let y = p.random(p.height);
-            movers.push(new Mover(x, y));
+        for(let i = 0; i < nums; i++){
+            particles_a[i] = new Particle(p.random(0, p.width),p.random(0,p.height));
+            particles_b[i] = new Particle(p.random(0, p.width),p.random(0,p.height));
+            particles_c[i] = new Particle(p.random(0, p.width),p.random(0,p.height));
         }
-        p.background(bg);
     };
 
     p.draw = () => {
-        for (let mover of movers) {
-            mover.update();
-            mover.display();
-        }
-
-        for (let i = movers.length - 1; i > 0; i--) {
-            let mover = movers[i];
-            if (mover.life == 0) {
-                movers.splice(i, 1);
-            }
-        }
-        for (let i = movers.length; i < num; i++) {
-            let angle = p.random(360);
-            let x = p.random(p.width);
-            let y = p.random(p.height);
-            movers.push(new Mover(x, y));
+        displayBackground(p);
+        if (it < maxIter) {
+            displaySphere(p);
+            it++;
         }
     };
 
-    class Mover {
-        constructor(_x, _y) {
-            this.pos = p.createVector(_x, _y);
-            this.noiseScaleX = 400;
-            this.noiseScaleY = 800;
-            this.noiseScaleZ = p.random(100, 200);
-            this.vel = p.createVector(0, 0);
-            this.life = p.random(1);
-            this.count = p.int(p.random(1, 10));
-            this.c = pallete[p.int(p.random(pallete.length))];
-        }
-        update() {
-            // let n = noise(this.pos.x / this.noiseScaleX, this.pos.y / this.noiseScaleY, frameCount / this.noiseScaleZ);
-            let n = p.noise(this.pos.x / this.noiseScaleX, this.pos.y / this.noiseScaleY);
-            let angle = p.map(n, 0, 1, 0, 360);
-            this.vel = p.createVector(p.cos(angle), p.sin(angle));
-            this.pos.add(this.vel);
-            this.pos.x = p.constrain(this.pos.x, offset, p.width - offset);
-            this.pos.y = p.constrain(this.pos.y, offset, p.height - offset);
-            this.life -= p.random(p.random(p.random(p.random()))) / 10;
-            this.life = p.constrain(this.life, 0, 1);
+    function displaySphere(p) {
+        //create the path
+        pathPoints = circlePoints();
+
+        for(let j=0;j<3;j++){
+            pathPoints = complexifyPath(pathPoints);
         }
 
-        display() {
-            p.strokeWeight(p.map(this.life, 0, 1, 0, 5));
-            p.stroke(this.c + "66");
-            p.point(this.pos.x, this.pos.y);
+        //draw the path
+        p.stroke(255,25);
+        for(let i=0;i<pathPoints.length -1;i++){
+            let v1 = pathPoints[i];
+            let v2 = pathPoints[i+1];
+            p.line(v1.x,v1.y,v2.x,v2.y);
         }
     }
 
-    function drawNoiseBackground(_n, _graphics) {
-        let c = p.color(0, 0, 0, 0.2);
-        for (let i = 0; i < _n; i++) {
-            let x = p.random(1) * p.width;
-            let y = p.random(1) * p.height;
-            let w = p.random(1, 3);
-            let h = p.random(1, 3);
-            _graphics.noStroke();
-            _graphics.fill(c);
-            _graphics.ellipse(x, y, w, h);
+    function displayBackground(p) {
+        p.noStroke();
+        p.smooth();
+        for(let i = 0; i < nums; i++){
+            let radius = p.map(i,0,nums,1,2);
+            let alpha = p.map(i,0,nums,0,250);
+
+            p.fill(69,33,124,alpha);
+            particles_a[i].move();
+            particles_a[i].display(radius);
+            particles_a[i].checkEdge();
+
+            p.fill(7,153,242,alpha);
+            particles_b[i].move();
+            particles_b[i].display(radius);
+            particles_b[i].checkEdge();
+
+            p.fill(255,255,255,alpha);
+            particles_c[i].move();
+            particles_c[i].display(radius);
+            particles_c[i].checkEdge();
         }
+    }
+
+
+    function complexifyPath(pathPoints){
+        //create a new path array from the old one by adding new points inbetween the old points
+        let newPath = [];
+
+        for(let i=0;i<pathPoints.length -1;i++){
+            let v1 = pathPoints[i];
+            let v2 = pathPoints[i+1];
+            let midPoint = p.createVector().add(v1, v2).mult(1);
+            let distance =  v1.dist(v2);
+
+            //the new point is halfway between the old points, with some gaussian variation
+            let standardDeviation = 0.250*distance;
+            let v = p.createVector(p.randomGaussian(midPoint.x,standardDeviation),p.randomGaussian(midPoint.y,standardDeviation));
+            p.append(newPath,v1);
+            p.append(newPath,v);
+        }
+
+        //don't forget the last point!
+        p.append(newPath,pathPoints[pathPoints.length-1]);
+        return newPath;
+    }
+
+    function circlePoints() {
+        //two points somewhere on a circle
+        let r = p.height/2;
+        let theta1 = p.randomGaussian(0,p.PI/4);
+        let theta2 = theta1 + p.randomGaussian(0,p.PI/3);
+        let v1 = p.createVector(p.width/2 + r*p.cos(theta1),p.height/2 + r*p.sin(theta1));
+        let v2 = p.createVector(p.width/2 + r*p.cos(theta2),p.height/2 + r*p.sin(theta2));
+
+        return [v1,v2];
+    }
+
+    function Particle(x, y){
+        this.dir = p.createVector(0, 0);
+        this.vel = p.createVector(0, 0);
+        this.pos = p.createVector(x, y);
+        this.speed = 0.4;
+
+        this.move = function(){
+            let angle = p.noise(this.pos.x/noiseScale, this.pos.y/noiseScale)*p.TWO_PI*noiseScale;
+            this.dir.x = p.cos(angle);
+            this.dir.y = p.sin(angle);
+            this.vel = this.dir.copy();
+            this.vel.mult(this.speed);
+            this.pos.add(this.vel);
+        };
+
+        this.checkEdge = function(){
+            if(this.pos.x > p.width || this.pos.x < 0 || this.pos.y > p.height || this.pos.y < 0){
+                this.pos.x = p.random(50, p.width);
+                this.pos.y = p.random(50, p.height);
+            }
+        };
+
+        this.display = function(r){
+            p.ellipse(this.pos.x, this.pos.y, r, r);
+        };
     }
 }
