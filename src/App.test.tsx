@@ -1,6 +1,8 @@
-import React from 'react';
+import App from './App';
+import * as React from "react";
+import {shallow} from "enzyme";
 
-it('basic test', () => {
-  const truth = true;
-  expect(truth).toBeTruthy();
+it('renders', () => {
+  const wrapper = shallow(<App />);
+  expect(wrapper.find('div')).toHaveLength(1);
 });
