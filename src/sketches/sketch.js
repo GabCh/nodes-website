@@ -9,7 +9,7 @@ export default function sketch(p){
     let noiseScale = 800;
 
     let pathPoints = [];
-    let maxIter = 2000;
+    let maxIter = 500;
     let it = 0;
 
     p.setup = () => {
