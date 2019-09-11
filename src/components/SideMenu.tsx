@@ -1,22 +1,22 @@
-import React from 'react';
+import React from 'react'
 import {Menu, MenuItemProps} from 'semantic-ui-react'
-import './SideMenu.css';
+import './SideMenu.css'
 
 class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
-    public state: ISideMenuState;
+    public state: ISideMenuState
 
     constructor(props: ISideMenuProps) {
-        super(props);
+        super(props)
         this.state = {activeItem: 'home'}
     }
 
-    handleItemClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, data: MenuItemProps): void => {
-        this.setState({ activeItem: data.name! });
-        e.preventDefault();
-    };
+    public handleItemClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, data: MenuItemProps): void => {
+        this.setState({ activeItem: data.name! })
+        e.preventDefault()
+    }
 
     render() {
-        const { activeItem } = this.state;
+        const { activeItem } = this.state
         return (
             <Menu pointing secondary vertical className={'website-menu'} color={'grey'}>
                 <Menu.Item
@@ -35,8 +35,8 @@ class SideMenu extends React.Component<ISideMenuProps, ISideMenuState> {
                     onClick={this.handleItemClick}
                 />
             </Menu>
-        );
+        )
     }
 }
 
-export default SideMenu;
+export default SideMenu

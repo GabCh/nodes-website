@@ -12,13 +12,13 @@ export class Particle {
   private velocity: Vector
   private position: Vector
 
-  constructor(_p: any) {
-    this.process = _p
-    this.x = _p.random(0, _p.width)
-    this.y = _p.random(0, _p.height)
-    this.direction = _p.createVector(0, 0)
-    this.velocity = _p.createVector(0, 0)
-    this.position = _p.createVector(this.x, this.y)
+  constructor(p: any) {
+    this.process = p
+    this.x = p.random(0, p.width)
+    this.y = p.random(0, p.height)
+    this.direction = p.createVector(0, 0)
+    this.velocity = p.createVector(0, 0)
+    this.position = p.createVector(this.x, this.y)
   }
 
   public move = (): void => {
@@ -32,7 +32,7 @@ export class Particle {
     this.velocity = this.direction.copy()
     this.velocity.mult(this.SPEED)
     this.position.add(this.velocity)
-  };
+  }
 
   public checkEdge = (): void => {
     if (this.isOutsideEdges()) {
