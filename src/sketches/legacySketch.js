@@ -1,5 +1,5 @@
 //TODO: Find a way to use ts
-export default function sketch(p){
+export default function sketch(p) {
     // Code from https://www.openprocessing.org/
 
     let particles_a = [];
