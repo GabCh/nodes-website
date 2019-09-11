@@ -2,26 +2,23 @@ import { Vector } from 'p5'
 
 export class Particle {
 
-  public readonly SPEED: number = 0.4
-  public readonly NOISE_SCALE: number = 800
+  private readonly SPEED: number = 0.4
+  private readonly NOISE_SCALE: number = 800
 
-  public process: any
-  public x: number
-  public y: number
-  public direction: Vector
-  public velocity: Vector
-  public position: Vector
+  private process: any
+  private x: number
+  private y: number
+  private direction: Vector
+  private velocity: Vector
+  private position: Vector
 
   constructor(_p: any) {
     this.process = _p
-    const _x = _p.random(0, _p.width)
-    const _y = _p.random(0, _p.height)
-
-    this.x = _x
-    this.y = _y
+    this.x = _p.random(0, _p.width)
+    this.y = _p.random(0, _p.height)
     this.direction = _p.createVector(0, 0)
     this.velocity = _p.createVector(0, 0)
-    this.position = _p.createVector(_x, _y)
+    this.position = _p.createVector(this.x, this.y)
   }
 
   public move = (): void => {
@@ -46,7 +43,7 @@ export class Particle {
 
   public display = (radius: number) => this.process.ellipse(this.position.x, this.position.y, radius, radius)
 
-  public isOutsideEdges = (): boolean =>
+  private isOutsideEdges = (): boolean =>
     this.position.x > this.process.width ||
     this.position.y > this.process.height ||
     this.position.x < 0 ||

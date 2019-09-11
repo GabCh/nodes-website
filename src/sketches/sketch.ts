@@ -5,16 +5,16 @@ export const createSketch = (p: any) => new Sketch(p).init()
 
 class Sketch {
 
-    public readonly PARTICLES_NUMBER: number = 50
-    public readonly MAX_ITERATIONS: number = 500
-    public readonly STANDARD_DEVIATION_RATIO: number = 0.25
+    private readonly PARTICLES_NUMBER: number = 50
+    private readonly MAX_ITERATIONS: number = 500
+    private readonly STANDARD_DEVIATION_RATIO: number = 0.25
 
-    public process: any
-    public particlesA: Particle[] = []
-    public particlesB: Particle[] = []
-    public particlesC: Particle[] = []
-    public currentIteration: number = 0
-    public pathPoints: Vector[] = []
+    private process: any
+    private particlesA: Particle[] = []
+    private particlesB: Particle[] = []
+    private particlesC: Particle[] = []
+    private currentIteration: number = 0
+    private pathPoints: Vector[] = []
 
     constructor(_p: any) {
         this.process = _p
@@ -25,7 +25,7 @@ class Sketch {
         this.process.draw = this.draw
     }
 
-    public setupProcess = (): void => {
+    private setupProcess = (): void => {
         this.process.createCanvas(this.process.windowWidth, this.process.windowHeight)
         this.process.background(21, 8, 50)
 
@@ -36,7 +36,7 @@ class Sketch {
         }
     }
 
-    public draw = (): void => {
+    private draw = (): void => {
         this.displayBackground()
 
         if (this.currentIteration < this.MAX_ITERATIONS) {
@@ -45,7 +45,7 @@ class Sketch {
         }
     }
 
-    public displaySphere = (): void => {
+    private displaySphere = (): void => {
         //create the path
         this.createCircularPathPoints()
 
@@ -62,7 +62,7 @@ class Sketch {
         }
     }
 
-    public displayBackground = (): void => {
+    private displayBackground = (): void => {
         this.process.noStroke()
         this.process.smooth()
 
@@ -87,7 +87,7 @@ class Sketch {
         }
     }
 
-    public complexifyPath = (): void => {
+    private complexifyPath = (): void => {
         //create a new path array from the old one by adding new points inbetween the old points
         const newPath: Vector[] = []
 
@@ -115,7 +115,7 @@ class Sketch {
         this.pathPoints = newPath
     }
 
-    public createCircularPathPoints = (): void => {
+    private createCircularPathPoints = (): void => {
         //two points somewhere on a circle
         const radius = this.process.height / 2
         const theta1 = this.process.randomGaussian(0, this.process.PI / 4)
