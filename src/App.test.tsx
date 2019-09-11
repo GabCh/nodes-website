@@ -1,8 +1,23 @@
-import App from './App'
-import * as React from 'react'
-import {shallow} from 'enzyme'
+import React from 'react'
+import { App } from './App'
+import { shallow, ShallowWrapper } from 'enzyme'
+// @ts-ignore
+import P5Wrapper from 'react-p5-wrapper'
+import SideMenu from './components/SideMenu'
 
-it('renders', () => {
-  const wrapper = shallow(<App />)
-  expect(wrapper.find('div')).toHaveLength(1)
+describe('App', () => {
+
+  let wrapper: ShallowWrapper
+
+  beforeEach(() => {
+    wrapper = shallow(<App/>)
+  })
+
+  it('should render the p5 wrapper', () => {
+    expect(wrapper.find(P5Wrapper)).toBeTruthy()
+  })
+
+  it('should render the side menu', () => {
+    expect(wrapper.find(SideMenu)).toBeTruthy()
+  })
 })
