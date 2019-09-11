@@ -5,7 +5,7 @@ import { createSketch } from './sketches/sketch'
 import './App.css'
 import SideMenu from './components/SideMenu'
 
-export default function App() {
+export const App: React.FC = () => {
   return (
     <div className='App'>
       <P5Wrapper sketch={createSketch}/>
