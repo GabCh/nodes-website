@@ -5,7 +5,7 @@ export class Particle {
   private readonly SPEED: number = 0.4
   private readonly NOISE_SCALE: number = 800
 
-  private process: any
+  private readonly process: any
   private x: number
   private y: number
   private direction: Vector

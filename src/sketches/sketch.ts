@@ -9,7 +9,7 @@ class Sketch {
     private readonly MAX_ITERATIONS: number = 500
     private readonly STANDARD_DEVIATION_RATIO: number = 0.25
 
-    private process: any
+    private readonly process: any
     private particlesA: Particle[] = []
     private particlesB: Particle[] = []
     private particlesC: Particle[] = []
