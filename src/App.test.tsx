@@ -1,5 +1,5 @@
 import React from 'react'
-import App from './App'
+import { App } from './App'
 import { shallow, ShallowWrapper } from 'enzyme'
 // @ts-ignore
 import P5Wrapper from 'react-p5-wrapper'
