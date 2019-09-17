@@ -77,8 +77,8 @@
   },
   "main": "scripts/start.js",
   "scripts": {
-    "start": "node bin/www",
-    "build": "tslint -p . && webpack",
+    "start": "node scripts/start.js",
+    "build": "tslint -p . && node scripts/build.js",
     "test": "CI=true node scripts/test.js"
   },
   "eslintConfig": {
