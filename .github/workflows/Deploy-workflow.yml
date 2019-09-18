@@ -47,12 +47,11 @@ jobs:
           path: /home/runner/work/nodes-website/nodes-website
       - name: Commit changes 
         uses: ludeeus/action-push@0.0.1
-        with:
+        env:
           ACTION_MAIL: ${{ secrets.EMAIL }}
           ACTION_NAME: Gabriel Chantal GitHub bot
           ACTION_BRANCH: gh-pages
           ACTION_MESSAGE: Github action deployment
-        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
