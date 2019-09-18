@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - feature/deploy #remove before merge
 
 jobs:
   build:
