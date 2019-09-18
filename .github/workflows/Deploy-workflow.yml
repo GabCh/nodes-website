@@ -46,11 +46,13 @@ jobs:
           name: build
           path: /home/runner/work/nodes-website/nodes-website
       - name: Commit & push the changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           ls &&
-          git remote set-url origin https://github.com/GabCh/nodes-website.git &&
-          git remote add origin https://${{ secrets.USERNAME }}:${{ secrets.PASSWORD }}@github.com/${{ secrets.USERNAME }}/nodes-website.git &&
+          git remote show origin &&
           git add . &&
           git commit -m "Github action deployment" &&
+          git remote set-url --push origin https://GabCh:$GITHUB_TOKEN@github.com/nodes-website.git &&
           git push origin gh-pages
