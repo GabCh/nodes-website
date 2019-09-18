@@ -52,7 +52,9 @@ jobs:
         run: |
           ls &&
           git remote show origin &&
+          git status &&
           git add . &&
           git commit -m "Github action deployment" &&
-          git remote set-url --push origin https://GabCh:$GITHUB_TOKEN@github.com/nodes-website.git &&
+          git config --global user.name "test" &&
+          git config --global user.email "test@test.com" &&
           git push origin gh-pages
