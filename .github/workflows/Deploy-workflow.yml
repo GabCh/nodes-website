@@ -44,15 +44,11 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: build
-      - name: Copy the build folder to the branch
-        shell: bash
-        run: |
-          echo $PWD &&
-          ls &&
-          cp /home/runner/work/nodes-website/nodes-website/build .
+          path: /home/runner/work/nodes-website/nodes-website
       - name: Commit & push the changes
         shell: bash
         run: |
+          ls &&
           git config --global user.name ${{ secrets.NAME }} &&
           git config --global user.email ${{ secrets.EMAIL }} &&
           git config --global github.user ${{ secrets.USERNAME }} &&
