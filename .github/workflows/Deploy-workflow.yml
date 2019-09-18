@@ -57,5 +57,6 @@ jobs:
           git remote show origin &&
           git status &&
           git add . &&
+          git status &&
           git commit -m "Github action deployment" &&
           git push origin gh-pages
