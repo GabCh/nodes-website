@@ -1,5 +1,5 @@
 {
-  "name": "website",
+  "name": "nodes",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -73,13 +73,17 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "tslint": "^5.20.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "gh-pages": "^1.0.0"
   },
   "main": "scripts/start.js",
+  "homepage": "http://GabCh.github.io/nodes",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "tslint -p . && node scripts/build.js",
-    "test": "CI=true node scripts/test.js"
+    "test": "CI=true node scripts/test.js",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
