@@ -14,6 +14,7 @@ jobs:
         node: [ '10' ]
     name: Node ${{ matrix.node }} sample
     steps:
+      - name: Checkout
       - uses: actions/checkout@master
       - name: Setup node
         uses: actions/setup-node@v1
@@ -21,9 +22,33 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm install
       - run: npm test
-      - run: git remote set-url origin https://github.com/GabCh/nodes-website.git &&
-             git config --global user.email ${{ secrets.EMAIL }} && 
-             git config --global user.name ${{ secrets.NAME }} && 
-             git config --global github.user ${{ secrets.USERNAME }} &&
-             git config --global github.token ${{ secrets.TOKEN }} &&
-             npm run deploy
+      - run: npm run build
+      - name: Upload build
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build/
+  deploy:
+    runs-on: ubuntu-16.04
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ref: gh-pages
+      - name: Download build
+        uses: actions/download-artifact@v1
+        with:
+          name: build
+      - name: Copy the build folder to the branch
+        shell: bash
+        run: |
+          cp build/ nodes-website/
+      - name: Commit & push the changes
+        shell: bash
+        run: |
+          git config --global user.name ${{ secrets.NAME }} &&
+          git config --global user.email ${{ secrets.EMAIL }} &&
+          git config --global github.user ${{ secrets.USERNAME }} &&
+          git config --global github.token ${{ secrets.TOKEN }} &&
+          git add . &&
+          git commit -m "Github action deployment" &&
+          git push origin gh-pages
