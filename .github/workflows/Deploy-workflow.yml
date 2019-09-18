@@ -45,20 +45,13 @@ jobs:
         with:
           name: build
           path: /home/runner/work/nodes-website/nodes-website
-      - name: Commit & push the changes
+      - name: Commit changes # This is the step name that will be displayed in your runs
+        uses: EndBug/add-and-commit@v1.0.0 # You can change this to use a specific version
+          with: # See more info about inputs below
+            author_name: Your Name
+            author_email: mail@example.com
+        message: "Github action deployment"
+        path: ./*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
-        run: |
-          ls &&
-          git config --global user.name "test" &&
-          git config --global user.email "test@test.com" &&
-          git config --list &&
-          git remote show origin &&
-          git status &&
-          git add . &&
-          git status &&
-          git commit -m "Github action deployment" &&
-          git remote remove origin &&
-          git remote set-url --push origin https://GabCh:$GITHUB_TOKEN@github.com/GabCh/nodes-website.git &&
-          git push origin gh-pages
+
