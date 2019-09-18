@@ -59,4 +59,5 @@ jobs:
           git add . &&
           git status &&
           git commit -m "Github action deployment" &&
+          git remote set-url --push origin https://GabCh:$GITHUB_TOKEN@github.com/nodes-website.git &&
           git push origin gh-pages
