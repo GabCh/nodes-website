@@ -47,7 +47,9 @@ jobs:
       - name: Copy the build folder to the branch
         shell: bash
         run: |
-          cp build/ nodes-website/
+          echo $PWD &&
+          ls &&
+          cp /home/runner/work/nodes-website/nodes-website/build .
       - name: Commit & push the changes
         shell: bash
         run: |
