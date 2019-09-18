@@ -7,7 +7,8 @@ on:
       - feature/deploy #remove before merge
 
 jobs:
-  build:
+  job_1:
+    name: Build
     runs-on: ubuntu-16.04
     strategy:
       matrix:
@@ -28,7 +29,9 @@ jobs:
         with:
           name: build
           path: build/
-  deploy:
+  job_2:
+    name: Deploy
+    needs: build
     runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@master
