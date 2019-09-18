@@ -45,13 +45,12 @@ jobs:
         with:
           name: build
           path: /home/runner/work/nodes-website/nodes-website
-      - name: Commit changes 
-        uses: ludeeus/action-push@0.0.1
+      - name: Publish
+        uses: crazy-max/ghaction-github-pages@master
+        with:
+          target_branch: gh-pages
+          build_dir: /home/runner/work/nodes-website/nodes-website
         env:
-          ACTION_MAIL: ${{ secrets.EMAIL }}
-          ACTION_NAME: Gabriel Chantal GitHub bot
-          ACTION_BRANCH: gh-pages
-          ACTION_MESSAGE: Github action deployment
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
