@@ -49,7 +49,8 @@ jobs:
         shell: bash
         run: |
           ls &&
-          git remote add origin https://${{ secrets.USERNAME }}:${{ secrets.PASSWORD }}@github.com/${{ secrets.USERNAME }}/nodes-website.git
+          git remote set-url origin https://github.com/GabCh/nodes-website.git &&
+          git remote add origin https://${{ secrets.USERNAME }}:${{ secrets.PASSWORD }}@github.com/${{ secrets.USERNAME }}/nodes-website.git &&
           git add . &&
           git commit -m "Github action deployment" &&
           git push origin gh-pages
