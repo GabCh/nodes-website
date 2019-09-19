@@ -1,7 +1,6 @@
 import React from 'react'
 // @ts-ignore
 import P5Wrapper from 'react-p5-wrapper'
-import { createSketch } from './sketches/sketch'
 import { createEchophon } from './sketches/ecophon'
 import './App.css'
 import SideMenu from './components/SideMenu'

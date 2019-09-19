@@ -1,5 +1,3 @@
-import * as P5 from 'p5'
-
 export class Rectangle {
     private readonly x: number
     private readonly y: number
