@@ -1,6 +1,6 @@
-![](https://github.com/GabCh/nodes-website/.github/workflows/CI-workflow.yml/badge.svg)
+![](https://github.com/GabCh/nodes-website/workflows/CI/badge.svg)
 
-![](https://github.com/GabCh/nodes-website/.github/workflows/Deploy-workflow.yml/badge.svg)
+![](https://github.com/GabCh/nodes-website/workflows/Deploy/badge.svg)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
