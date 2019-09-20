@@ -1,0 +1,50 @@
+name: Deploy
+# This workflow is triggered on pushes to master to the repository.
+on:  
+  push:
+    branches:
+      - master
+
+jobs:
+  job_1:
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        node: [ '10' ]
+    name: Build node ${{ matrix.node }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: npm install
+      - name: Executing tests
+        run: npm test
+      - name: Make a production build
+        run: npm run build
+      - name: Upload build
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build/
+  job_2:
+    name: Deploy
+    needs: job_1
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Download build
+        uses: actions/download-artifact@v1
+        with:
+          name: build
+          path: /home/runner/work/nodes-website/nodes-website
+      - name: GitHub Pages Deploy
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          BUILD_DIR: .
+
+
