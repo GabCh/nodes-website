@@ -7,8 +7,10 @@ interface SideMenuState {
 }
 
 export class SideMenu extends React.Component<any, SideMenuState> {
-
-  componentDidMount = (): void => this.setState(() => ({ activeItem: 'home' }))
+  constructor(props: any) {
+    super(props)
+    this.state = { activeItem: 'home' }
+  }
 
   render = (): JSX.Element => (
     <Menu pointing secondary vertical className={'website-menu'} color={'grey'}>

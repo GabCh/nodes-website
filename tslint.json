@@ -39,7 +39,8 @@
         "interface-name": false,
         "no-console": false,
         "curly": false,
-        "no-bitwise": false
+        "no-bitwise": false,
+        "no-empty": false
     },
     "rulesDirectory": []
 }
