@@ -1,12 +1,9 @@
 import React from 'react'
+import { createEchophon } from '../sketches/ecophon'
 // @ts-ignore
 import P5Wrapper from 'react-p5-wrapper'
 
-interface AnimatedBackgroundProps {
-  p5Sketch: any
-}
+export class AnimatedBackground extends React.Component<any, any> {
 
-export class AnimatedBackground extends React.Component<AnimatedBackgroundProps, any> {
-
-  render = (): JSX.Element => <P5Wrapper sketch={this.props.p5Sketch}/>
+  render = (): JSX.Element => <P5Wrapper sketch={createEchophon}/>
 }
