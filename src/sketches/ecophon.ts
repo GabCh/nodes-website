@@ -1,20 +1,20 @@
-import { Rectangle } from './models/rectangle'
+import { Particle } from './models/particle'
 import { Sphere } from './models/sphere'
 
 class Echophon {
-    private readonly N: number = 100
+    private readonly PARTICLES_NUMBER: number = 10
 
     private readonly p5: any
-    private t: number
-    private c: number
-    private array: Rectangle[]
     private sphere: Sphere
+    private particlesA: Particle[] = []
+    private particlesB: Particle[] = []
+    private particlesC: Particle[] = []
+    private particlesD: Particle[] = []
+    private particlesE: Particle[] = []
+    private particlesF: Particle[] = []
 
     constructor(p: any) {
         this.p5 = p
-        this.t = 0
-        this.c = 0
-        this.array = []
         this.sphere = new Sphere(p)
     }
 
@@ -34,41 +34,59 @@ class Echophon {
     private setup = (): void => {
         this.p5.createCanvas(this.p5.windowWidth, this.p5.windowHeight)
 
-        this.p5.noiseSeed(1)
-
-        for (let i = 0; i < this.N; i++) {
-            this.array[i] = new Rectangle(this.p5, this.t, this.push, this.pop)
+        this.p5.background('#000000')
+        for (let i = 0; i < this.PARTICLES_NUMBER; i++) {
+            this.particlesA[i] = new Particle(this.p5)
+            this.particlesB[i] = new Particle(this.p5)
+            this.particlesC[i] = new Particle(this.p5)
+            this.particlesD[i] = new Particle(this.p5)
+            this.particlesE[i] = new Particle(this.p5)
+            this.particlesF[i] = new Particle(this.p5)
         }
-        this.p5.strokeWeight(3)
     }
 
     private draw = (): void => {
-        this.t = this.p5.mouseX * 0.1 / this.p5.width
-        this.c = this.p5.mouseY * 0.1 / this.p5.height
-        this.drawRect()
+        this.displayBackground()
         this.sphere.show()
     }
 
-    private drawRect = (): void => {
-        this.p5.background(30)
-
-        this.p5.stroke(220)
-        this.p5.noFill()
-        for (let i = 0; i < this.N; i++) {
-            this.array[i].show()
-        }
-        this.p5.rect(50, 50, this.p5.width - 100, this.p5.height - 100)
-
+    private displayBackground = (): void => {
         this.p5.noStroke()
-        this.p5.fill(30)
-        for (let i = 0; i < this.N; i++) {
-            this.array[i].setT(this.t)
-            this.array[i].show()
+        this.p5.smooth()
+
+        for (let i = 0; i < this.PARTICLES_NUMBER; i++) {
+            const radius = this.p5.map(i, 0, this.PARTICLES_NUMBER, 1, 2)
+
+            this.p5.stroke('#db7d2f')
+            this.particlesA[i].move()
+            this.particlesA[i].display(radius)
+            this.particlesA[i].checkEdge()
+
+            this.p5.stroke('#f9d500')
+            this.particlesB[i].move()
+            this.particlesB[i].display(radius)
+            this.particlesB[i].checkEdge()
+
+            this.p5.stroke('#a10f0f')
+            this.particlesC[i].move()
+            this.particlesC[i].display(radius)
+            this.particlesC[i].checkEdge()
+
+            this.p5.stroke('#1a405a')
+            this.particlesD[i].move()
+            this.particlesD[i].display(radius)
+            this.particlesD[i].checkEdge()
+
+            this.p5.stroke('#eac05f')
+            this.particlesE[i].move()
+            this.particlesE[i].display(radius)
+            this.particlesE[i].checkEdge()
+
+            this.p5.stroke('#bcccce')
+            this.particlesF[i].move()
+            this.particlesF[i].display(radius)
+            this.particlesF[i].checkEdge()
         }
-        this.p5.rect(0, 0, this.p5.width, 50)
-        this.p5.rect(0, this.p5.height - 50, this.p5.width, 50)
-        this.p5.rect(0, 0, 50, this.p5.height)
-        this.p5.rect(this.p5.width - 50, 0, 50, this.p5.height)
     }
 }
 

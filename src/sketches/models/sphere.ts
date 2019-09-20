@@ -4,31 +4,28 @@ export class Sphere {
     private readonly p5: any
     private osc: number
     private animated: boolean
+    private coolingoff: boolean
 
     constructor(p: any) {
-        this.osc = 0.004
+        this.osc = 0.04
         this.p5 = p
         this.animated = false
+        this.coolingoff = false
         this.p5.mouseWheel = this.mouseWheel
     }
 
     public mouseWheel = (event: any): void => {
+        this.osc = 0.04
         this.animated = true
     }
 
     public show = (): void => {
-        this.p5.smooth(8)
-        this.p5.noStroke()
-        this.p5.fill(0, 175)
-        this.p5.rect(0, 0, this.p5.width, this.p5.height)
+        this.p5.fill('#000000')
+        this.p5.stroke('#000000')
+        this.p5.ellipse((this.p5.width / 2), (this.p5.height / 2), this.radius * 2, this.radius * 2)
 
         if (this.animated) {
-            if (this.osc < 1) {
-                this.osc *= 1.1
-            } else {
-                this.osc *= 0.1
-                this.animated = false
-            }
+            this.animateSphere()
         }
 
         this.p5.translate(this.p5.width / 2, this.p5.height / 2) // (0,0) now at center of canvas
@@ -40,7 +37,7 @@ export class Sphere {
             const x2: number = this.radius * this.p5.cos(this.p5.TWO_PI * i / this.num)
             const y2: number = this.radius * this.p5.sin(this.p5.TWO_PI * i / this.num)
 
-            this.p5.stroke('#5B4778')
+            this.p5.stroke('#e1f1ff')
             this.p5.strokeWeight(.5)
             this.p5.strokeCap(this.p5.ROUND)
 
@@ -52,6 +49,20 @@ export class Sphere {
             this.p5.line(x, y, x2, y2)
             this.p5.line(-x, -y, x2, y2)
             this.p5.pop()
+        }
+    }
+
+    private animateSphere = (): void => {
+        if (this.osc < 10 && !this.coolingoff) {
+            this.osc *= 1.05
+        } else {
+            this.coolingoff = true
+            this.osc = this.osc - (this.osc / 12)
+            if (this.osc < 0.1) {
+                this.osc = 0
+                this.animated = false
+                this.coolingoff = false
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   return (
     <div className='App'>
       <P5Wrapper sketch={createEchophon}/>
-      <h1>Hello, World!</h1>
+      <h1>Nodes</h1>
       <SideMenu/>
     </div>
   )
