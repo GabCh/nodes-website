@@ -1,16 +1,13 @@
 import React from 'react'
-// @ts-ignore
-import P5Wrapper from 'react-p5-wrapper'
+import { AnimatedBackground } from './components/AnimatedBackground'
+import { SideMenu } from './components/SideMenu'
 import { createEchophon } from './sketches/ecophon'
 import './App.css'
-import SideMenu from './components/SideMenu'
 
-export const App: React.FC = () => {
-  return (
-    <div className='App'>
-      <P5Wrapper sketch={createEchophon}/>
-      <h1>Nodes</h1>
-      <SideMenu/>
-    </div>
-  )
-}
+export const App: React.FC = () => (
+  <div className='App'>
+    <AnimatedBackground p5Sketch={createEchophon}/>
+    <h1>Nodes</h1>
+    <SideMenu/>
+  </div>
+)

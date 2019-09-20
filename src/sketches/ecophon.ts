@@ -61,4 +61,4 @@ class Echophon {
     }
 }
 
-export const createEchophon = (p: any) => new Echophon(p).init()
+export const createEchophon = (p: any): void => new Echophon(p).init()
