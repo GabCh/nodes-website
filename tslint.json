@@ -38,7 +38,9 @@
         "member-access": false,
         "interface-name": false,
         "no-console": false,
-        "curly": false
+        "curly": false,
+        "no-bitwise": false,
+        "no-empty": false
     },
     "rulesDirectory": []
 }

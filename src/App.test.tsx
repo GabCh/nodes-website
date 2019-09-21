@@ -1,23 +1,18 @@
 import React from 'react'
 import { App } from './App'
-import { shallow, ShallowWrapper } from 'enzyme'
-// @ts-ignore
-import P5Wrapper from 'react-p5-wrapper'
-import SideMenu from './components/SideMenu'
+import { shallow } from 'enzyme'
+import { AnimatedBackground } from './components/AnimatedBackground'
+import { SideMenu } from './components/SideMenu'
 
 describe('App', () => {
 
-  let wrapper: ShallowWrapper
+  const wrapper = shallow(<App/>)
 
-  beforeEach(() => {
-    wrapper = shallow(<App/>)
-  })
-
-  it('should render the p5 wrapper', () => {
-    expect(wrapper.find(P5Wrapper)).toBeTruthy()
+  it('should render the animated background', () => {
+    expect(wrapper.find(AnimatedBackground)).toHaveLength(1)
   })
 
   it('should render the side menu', () => {
-    expect(wrapper.find(SideMenu)).toBeTruthy()
+    expect(wrapper.find(SideMenu)).toHaveLength(1)
   })
 })

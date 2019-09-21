@@ -76,6 +76,7 @@
     "typescript": "^3.6.3",
     "gh-pages": "^1.0.0"
   },
+  "homepage": "http://GabCh.github.io/nodes-website",
   "main": "scripts/start.js",
   "homepage": "http://GabCh.github.io/nodes-website",
   "scripts": {
