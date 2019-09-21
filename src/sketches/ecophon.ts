@@ -30,14 +30,6 @@ class Echophon {
         this.p5.draw = this.draw
     }
 
-    private push = (): void => {
-        this.p5.push()
-    }
-
-    private pop = (): void => {
-        this.p5.pop()
-    }
-
     private setup = (): void => {
         this.p5.createCanvas(this.p5.windowWidth, this.p5.windowHeight)
         this.p5.background(Color.BLACK)
