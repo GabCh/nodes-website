@@ -2,7 +2,7 @@ import React from 'react'
 import { Menu, MenuItemProps } from 'semantic-ui-react'
 import './SideMenu.css'
 
-interface SideMenuState {
+export interface SideMenuState {
   activeItem: string
 }
 

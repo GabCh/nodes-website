@@ -1,12 +1,12 @@
 import React from 'react'
 import { mount, shallow } from 'enzyme'
 import { Menu } from 'semantic-ui-react'
-import { SideMenu } from './SideMenu'
+import { SideMenu, SideMenuState } from './SideMenu'
 
 describe('SideMenu', () => {
 
     describe('on initialization', () => {
-        const wrapper = shallow(<SideMenu/>)
+        const wrapper = shallow<any, SideMenuState>(<SideMenu/>)
 
         it('should have home as default activeItem state', () => {
             expect(wrapper.state()).toEqual({ activeItem: 'home' })
@@ -22,7 +22,7 @@ describe('SideMenu', () => {
     })
 
     describe('on Item click', () => {
-        const wrapper = mount(<SideMenu/>)
+        const wrapper = mount<any, SideMenuState>(<SideMenu/>)
         const item = wrapper.find(Menu).find(Menu.Item).last()
         const itemName = item.prop('name')
 
@@ -31,7 +31,7 @@ describe('SideMenu', () => {
         })
 
         it('should set the active item state to the item name', () => {
-            expect(wrapper.state()).toEqual({ activeItem: itemName })
+            expect(wrapper.state().activeItem).toEqual(itemName)
         })
     })
 })

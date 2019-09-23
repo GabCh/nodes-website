@@ -1,13 +1,38 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import { FacebookFeed } from './FacebookFeed'
+import { shallow, ShallowWrapper } from 'enzyme'
+import { FacebookFeed, FacebookFeedState } from './FacebookFeed'
 
-describe('Facebook', () => {
+describe('FacebookFeed', () => {
 
-  const wrapper = shallow(<FacebookFeed/>)
+  let wrapper: ShallowWrapper<any, FacebookFeedState>
+
+  const getFbPageDiv = (): ShallowWrapper<any, FacebookFeedState> =>
+    wrapper.findWhere((w: ShallowWrapper) => w.hasClass('fb-page'))
 
   it('should render the div', () => {
-    expect(wrapper.find(<div/>)).toBeTruthy()
-    expect(wrapper.hasClass('fb-page')).toBeTruthy()
+    wrapper = shallow(<FacebookFeed/>)
+    expect(getFbPageDiv()).toHaveLength(1)
+  })
+
+  describe('when the state with is above 1500', () => {
+    beforeEach(() => {
+      wrapper = shallow(<FacebookFeed/>)
+      wrapper.setState((prev: FacebookFeedState) => ({ ...prev, width: 1555 }))
+    })
+
+    it('should set the data-height property to 800', () => {
+      expect(getFbPageDiv().getElement().props['data-height']).toEqual('800')
+    })
+  })
+
+  describe('when the state with is below 1500', () => {
+    beforeEach(() => {
+      wrapper = shallow(<FacebookFeed/>)
+      wrapper.setState((prev: FacebookFeedState) => ({ ...prev, width: 1000 }))
+    })
+
+    it('should set the data-height property empty', () => {
+      expect(getFbPageDiv().getElement().props['data-height']).toEqual('')
+    })
   })
 })
