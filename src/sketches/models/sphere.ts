@@ -1,13 +1,14 @@
 export class Sphere {
-    private readonly num: number = 12
+    private readonly num: number = 24
     private readonly radius: number = 200
+    private readonly speed: number = 0.02
     private readonly p5: any
     private osc: number
     private animated: boolean
     private coolingoff: boolean
 
     constructor(p: any) {
-        this.osc = 0.04
+        this.osc = this.speed
         this.p5 = p
         this.animated = false
         this.coolingoff = false
@@ -15,7 +16,6 @@ export class Sphere {
     }
 
     public mouseWheel = (event: any): void => {
-        this.osc = 0.04
         this.animated = true
     }
 
@@ -24,6 +24,9 @@ export class Sphere {
         this.p5.stroke('#000000')
         this.p5.ellipse((this.p5.width / 2), (this.p5.height / 2), this.radius * 2, this.radius * 2)
 
+        if (!this.animated && !this.coolingoff) {
+            this.osc += this.speed
+        }
         if (this.animated) {
             this.animateSphere()
         }
@@ -53,13 +56,13 @@ export class Sphere {
     }
 
     private animateSphere = (): void => {
-        if (this.osc < 10 && !this.coolingoff) {
+        if (this.osc < (this.speed * 1000) && !this.coolingoff) {
             this.osc *= 1.05
         } else {
             this.coolingoff = true
             this.osc = this.osc - (this.osc / 12)
-            if (this.osc < 0.1) {
-                this.osc = 0
+            if (this.osc < this.speed) {
+                this.osc = this.speed
                 this.animated = false
                 this.coolingoff = false
             }
