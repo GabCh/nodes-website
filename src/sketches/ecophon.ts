@@ -1,12 +1,12 @@
 import { Color } from './models/color'
 import { ParticleGroup } from './models/particle-group'
-import { Sphere } from './models/sphere'
+import { DottedSphere } from './models/dotted-sphere'
 
 class Echophon {
     private readonly PARTICLES_NUMBER: number = 10
 
     private readonly p5: any
-    private sphere: Sphere
+    private sphere: DottedSphere
     private particlesA: ParticleGroup
     private particlesB: ParticleGroup
     private particlesC: ParticleGroup
@@ -16,7 +16,7 @@ class Echophon {
 
     constructor(p: any) {
         this.p5 = p
-        this.sphere = new Sphere(p)
+        this.sphere = new DottedSphere(p)
         this.particlesA = new ParticleGroup(p, this.PARTICLES_NUMBER)
         this.particlesB = new ParticleGroup(p, this.PARTICLES_NUMBER)
         this.particlesC = new ParticleGroup(p, this.PARTICLES_NUMBER)
@@ -33,6 +33,7 @@ class Echophon {
     private setup = (): void => {
         this.p5.createCanvas(this.p5.windowWidth, this.p5.windowHeight)
         this.p5.background(Color.BLACK)
+        this.sphere.init()
     }
 
     private draw = (): void => {
