@@ -23,7 +23,7 @@ export class Particle {
 
   public move = (): void => {
     const angle = this.p5.noise(
-      this.position.x / this.NOISE_SCALE,
+      this.position.y / this.NOISE_SCALE,
       this.position.y / this.NOISE_SCALE
     ) * this.p5.TWO_PI * this.NOISE_SCALE
 

@@ -9,6 +9,5 @@ export const App: React.FC = () => (
     <AnimatedBackground/>
     <h1>Nodes</h1>
     <SideMenu/>
-    <FacebookFeed/>
   </div>
 )
