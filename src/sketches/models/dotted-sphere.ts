@@ -1,9 +1,10 @@
-export class DottedSphere {
+import {Attractor} from './attractor'
+
+export class DottedSphere extends Attractor {
     private readonly nbPoints: number = 250
     private readonly diameter: number = 400
-    private readonly radius: number = this.diameter / 2
+    private radius: number = this.diameter / 2
     private readonly period: number = 150
-    private readonly p5: any
     private r: number
     private x: number
     private y: number
@@ -13,8 +14,8 @@ export class DottedSphere {
     private randomPart: number[]
     private partSize: number[]
 
-    constructor(p: any) {
-        this.p5 = p
+    constructor(p: any, x: number, y: number) {
+        super(p, x, y)
         this.r = 0
         this.x = 0
         this.y = 0
@@ -72,5 +73,11 @@ export class DottedSphere {
         }
         this.p5.fill('#000000')
         this.p5.stroke('#000000')
+        if (this.radius < 0) {
+            this.radius = this.diameter / 2
+            this.p5.background(0)
+        } else {
+            this.radius -= 0.1
+        }
     }
 }

@@ -1,13 +1,17 @@
 import { Color } from './color'
 import { Particle } from './particle'
+import { Vector } from 'p5'
+import {Attractor} from './attractor'
 
 export class ParticleGroup {
   private p5: any
   private particles: Particle[] = []
+  private attractor: Attractor
 
-  constructor(p: any, groupSize: number) {
+  constructor(p: any, groupSize: number, attractor: Attractor) {
     this.p5 = p
-    for (let i = 0; i < groupSize; i++) this.particles.push(new Particle(p))
+    for (let i = 0; i < groupSize; i++) this.particles.push(new Particle(p, p.windowWidth, p.windowHeight))
+    this.attractor = attractor
   }
 
   public animateParticlesWithColor = (color: Color) => {
@@ -19,8 +23,10 @@ export class ParticleGroup {
   }
 
   private animateParticle = (particle: Particle, radius: any) => {
+    const force: Vector = this.attractor.attract(particle)
+    particle.applyForce(force)
     particle.move()
     particle.display(radius)
-    particle.checkEdge()
+    particle.checkEdge(this.attractor)
   }
 }

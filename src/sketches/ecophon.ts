@@ -16,13 +16,13 @@ class Echophon {
 
     constructor(p: any) {
         this.p5 = p
-        this.sphere = new DottedSphere(p)
-        this.particlesA = new ParticleGroup(p, this.PARTICLES_NUMBER)
-        this.particlesB = new ParticleGroup(p, this.PARTICLES_NUMBER)
-        this.particlesC = new ParticleGroup(p, this.PARTICLES_NUMBER)
-        this.particlesD = new ParticleGroup(p, this.PARTICLES_NUMBER)
-        this.particlesE = new ParticleGroup(p, this.PARTICLES_NUMBER)
-        this.particlesF = new ParticleGroup(p, this.PARTICLES_NUMBER)
+        this.sphere = new DottedSphere(p, p.windowWidth / 2, p.windowHeight / 2)
+        this.particlesA = new ParticleGroup(p, this.PARTICLES_NUMBER, this.sphere)
+        this.particlesB = new ParticleGroup(p, this.PARTICLES_NUMBER, this.sphere)
+        this.particlesC = new ParticleGroup(p, this.PARTICLES_NUMBER, this.sphere)
+        this.particlesD = new ParticleGroup(p, this.PARTICLES_NUMBER, this.sphere)
+        this.particlesE = new ParticleGroup(p, this.PARTICLES_NUMBER, this.sphere)
+        this.particlesF = new ParticleGroup(p, this.PARTICLES_NUMBER, this.sphere)
     }
 
     public init = () => {
