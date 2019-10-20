@@ -10,13 +10,13 @@ export class Attractor {
     protected dragging: boolean = false
     protected rollover: boolean = false
 
-    private readonly G: number = 0.001
+    private readonly G: number = 0.00005
 
     constructor(p: any, x: number, y: number) {
         this.p5 = p
         this.position = this.p5.createVector(x, y)
         this.dragOffset = p.createVector(0,  0)
-        this.mass = 20
+        this.mass = 100
     }
 
     public attract = (m: Mover): Vector => {

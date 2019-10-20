@@ -3,7 +3,7 @@ import { ParticleGroup } from './models/particle-group'
 import { DottedSphere } from './models/dotted-sphere'
 
 class Echophon {
-    private readonly PARTICLES_NUMBER: number = 10
+    private readonly PARTICLES_NUMBER: number = 15
 
     private readonly p5: any
     private sphere: DottedSphere

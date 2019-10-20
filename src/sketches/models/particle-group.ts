@@ -24,8 +24,7 @@ export class ParticleGroup {
 
   private animateParticle = (particle: Particle, radius: any) => {
     const force: Vector = this.attractor.attract(particle)
-    particle.applyForce(force)
-    particle.move()
+    particle.move(force)
     particle.display(radius)
     particle.checkEdge(this.attractor)
   }
