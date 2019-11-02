@@ -33,10 +33,17 @@ export class Mountains {
         while (y < endY) {
             this.p5.stroke(this.colorSet[parseInt((iterations % 6).toString(), 10)])
             this.p5.beginShape()
-            for (let x = (startX - iterationRatio); x < (endX + iterationRatio); ++x)
-                this.p5.vertex(x,
-                    y - (startY / 4) / (1 + this.p5.pow(x - endY, 4) / 8e6) *
-                    this.p5.noise(x / 20 + this.f / 50 + y) * (iterationRatio / 100))
+            for (let x = (startX - iterationRatio); x < (endX + iterationRatio); ++x) {
+                if (this.p5.windowWidth < 500) {
+                    this.p5.vertex(x,
+                        y - 50 / (1 + this.p5.pow(x - (this.p5.windowWidth / 2), 4) / 8e6) *
+                        this.p5.noise(x / 20 + this.f / 50 + y) * (iterationRatio / 100))
+                } else {
+                    this.p5.vertex(x,
+                        y - 30 / (1 + this.p5.pow(x - endY, 4) / 8e6) *
+                        this.p5.noise(x / 20 + this.f / 50 + y) * (iterationRatio / 100))
+                }
+            }
             iterationRatio *= 1.18
             this.p5.endShape()
             y += spacingRatio
