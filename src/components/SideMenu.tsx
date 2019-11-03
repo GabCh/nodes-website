@@ -1,4 +1,5 @@
 import React from 'react'
+import { Redirect } from 'react-router'
 import { Menu, MenuItemProps } from 'semantic-ui-react'
 import './SideMenu.css'
 
@@ -18,7 +19,10 @@ export class SideMenu extends React.Component<any, SideMenuState> {
         name='home'
         active={this.state.activeItem === 'home'}
         onClick={this.handleItemClick}
-      />
+        ref='/'
+      >
+        <Redirect to='/'/>
+      </Menu.Item>
       <Menu.Item
         name='events'
         active={this.state.activeItem === 'events'}
@@ -28,6 +32,7 @@ export class SideMenu extends React.Component<any, SideMenuState> {
         name='follow us'
         active={this.state.activeItem === 'follow us'}
         onClick={this.handleItemClick}
+        ref='/follow_us'
       />
     </Menu>
   )
