@@ -23,6 +23,7 @@ class Macou {
         this.p5.createCanvas(this.p5.windowWidth, this.p5.windowHeight)
         this.p5.background(Color.BLACK)
         this.sphere.init()
+        this.background.setup()
     }
 
     private draw = (): void => {
