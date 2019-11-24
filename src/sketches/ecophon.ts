@@ -46,10 +46,10 @@ class Echophon {
         this.p5.smooth()
 
         this.particlesA.animateParticlesWithColor(Color.ORANGE)
-        this.particlesB.animateParticlesWithColor(Color.YELLOW)
+        this.particlesB.animateParticlesWithColor(Color.YELLOW_1)
         this.particlesC.animateParticlesWithColor(Color.DARK_RED)
         this.particlesD.animateParticlesWithColor(Color.DARK_BLUE)
-        this.particlesE.animateParticlesWithColor(Color.LIGHT_YELLOW)
+        this.particlesE.animateParticlesWithColor(Color.YELLOW_3)
         this.particlesF.animateParticlesWithColor(Color.LIGHT_GRAY)
     }
 }

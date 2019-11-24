@@ -42,5 +42,10 @@
         "no-bitwise": false,
         "no-empty": false
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "**/lib/*.js"
+        ]
+    }
 }

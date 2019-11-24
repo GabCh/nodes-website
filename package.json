@@ -78,7 +78,6 @@
   },
   "homepage": "http://GabCh.github.io/nodes-website",
   "main": "scripts/start.js",
-  "homepage": "http://GabCh.github.io/nodes-website",
   "scripts": {
     "start": "node scripts/start.js",
     "build": "tslint -p . && node scripts/build.js",
